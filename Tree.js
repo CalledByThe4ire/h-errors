@@ -26,7 +26,36 @@ class Tree {
   }
 
   // BEGIN (write your solution here)
+  hasChild(key) {
+    return this.children.has(key);
+  }
 
+  getParent() {
+    return this.parent;
+  }
+
+  removeChild(key) {
+    return this.children.delete(key);
+  }
+
+  hasChildren() {
+    return this.children.size > 0;
+  }
+
+  getDeepChild(keys) {
+    const [key, ...rest] = keys;
+    const node = this.getChild(key);
+    if (node === undefined) {
+      return null;
+    } else if (rest.length === 0) {
+      return node;
+    }
+    return node.getDeepChild(rest);
+  }
+
+  getChildren() {
+    return [...this.children.values()];
+  }
   // END
 }
 
