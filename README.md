@@ -1,23 +1,34 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+Файловая система должна корректно обрабатывать пустые пути, делая внутри нормализацию. То есть, если ей передать путь `///etc/config//my///`, то он транслируется в `/etc/config/my`.
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+### HexletFs.js
 
-# nodejs-package
+Реализуйте следующие части интерфейса типа `HexletFs`.
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
+-   `isDirectory(path)`
+-   `isFile(path)`
+-   `mkdirSync(path)`
 
-## Setup
+-   `touchSync(path)` - создает пустой файл. На самом деле, в реальной файловой системе, команда `touch` меняет время последнего обращения к файлу, а побочным эффектом этой команды является создание файла в случае его отсутствия. По этой причине данной командой часто пользуются для создания файлов.
 
-```sh
-$ make install
+Пример:
+
+```
+files.isDirectory('/etc'); // false
+
+files.mkdirSync('/etc');
+files.isDirectory('/etc'); // true
+
+files.mkdirSync('/etc/nginx');
+files.isDirectory('/etc/nginx'); // true
+
+files.isFile('/file.txt'); // false
+
+files.touchSync('/file.txt');
+files.isFile('/file.txt'); // true
+
 ```
 
-## Run tests
+### Подсказки
 
-```sh
-$ make test
-```
+-   Реализуйте функцию `getPathParts`, которая разбивает путь на массив имен. Без этой функции не будет работать метод `findNode`, осуществляющий глубокий поиск файла (каталога) внутри текущего каталога.
+-   Для работы с путями используйте возможности [встроенного в Node.js](https://nodejs.org/api/) модуля `Path`. Конкретно вам понадобятся [parse](https://nodejs.org/api/path.html#path_path_parse_path) и [sep](https://nodejs.org/api/path.html#path_path_sep)
