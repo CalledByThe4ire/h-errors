@@ -1,23 +1,36 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+### Tree.js
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+Реализуйте недостающие части интерфейса типа `Tree`.
 
-# nodejs-package
+-   `hasChildren()`
+-   `hasChild(key)`
+-   `getParent()`
+-   `removeChild(key)`
+-   `getDeepChild(keys)`. Функция возвращает `null` если узел не найден или был передан пустой массив.
+-   `getChildren()`
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
+```
+tree = new Tree('/');
+tree.addChild('var')
+  .addChild('lib')
+  .addChild('run');
+tree.addChild('etc');
+tree.addChild('home');
 
-## Setup
+// example: getDeepChild
+const subtree = tree.getDeepChild(['var', 'lib']);
+subtree.getKey(); // lib
 
-```sh
-$ make install
+tree.getDeepChild(['var', 'nobody']); // null
+
+const parent = subtree.getParent();
+parent.getKey(); // var
+
+tree.removeChild('home'); // true
+tree.removeChild('nonexistentNode'); // false
+
 ```
 
-## Run tests
+### Подсказки
 
-```sh
-$ make test
-```
+-   метод `getChildren` возвращает массив нод
