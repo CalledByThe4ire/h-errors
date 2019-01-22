@@ -2,8 +2,9 @@ import path from 'path';
 import Tree from 'hexlet-trees';
 
 // BEGIN (write your solution here)
-
-const getPathParts = filePath => filePath.replace(/\/+\B/g, '').trim().split(path.sep).filter(v => v);
+// via regular expression
+// const getPathParts = filePath => filePath.replace(/\/+\B/g, '').trim().split(path.sep).filter(v => v);
+const getPathParts = filepath => filepath.split(path.sep).filter(part => part !== '');
 // END
 
 export default class {
@@ -12,36 +13,34 @@ export default class {
   }
 
   // BEGIN (write your solution here)
-  isDirectory(key) {
-    const node = this.findNode(key);
-    if (node && node.meta.type === 'dir') {
-      return true;
+  touchSync(filepath) {
+    const { dir, base } = path.parse(filepath);
+    const current = this.findNode(dir);
+    if (!current || current.getMeta().type !== 'dir') {
+      return false;
     }
-    return false;
+    return current.addChild(base, { type: 'file' });
   }
 
-  isFile(key) {
-    const node = this.findNode(key);
-    if (node && node.meta.type === 'file') {
-      return true;
+  isFile(filepath) {
+    const current = this.findNode(filepath);
+    return !!current && current.getMeta().type === 'file';
+  }
+
+  mkdirSync(filepath) {
+    const { dir, base } = path.parse(filepath);
+    const parent = this.findNode(dir);
+    if (!parent || parent.getMeta().type !== 'dir') {
+      return false;
     }
-    return false;
+    return parent.addChild(base, { type: 'dir' });
   }
 
-  mkdirSync(filePath) {
-    const filePathParts = getPathParts(filePath);
-    const [dir, value] = filePathParts;
-    const child = typeof value === 'undefined' ? this.tree : this.tree.getDeepChild(dir);
-    child.addChild(typeof value === 'undefined' ? dir : value, { type: 'dir' });
-    return this.tree;
-  }
-
-  touchSync(filePath) {
-    const filePathParts = getPathParts(filePath);
-    const [dir, value] = filePathParts;
-    const child = typeof value === 'undefined' ? this.tree : this.tree.getDeepChild(dir);
-    child.addChild(typeof value === 'undefined' ? dir : value, { type: 'file' });
-    return this.tree;
+  isDirectory(filepath) {
+    // const parts = getPathParts(filepath);
+    // const current = this.tree.getDeepChild(parts);
+    const current = this.findNode(filepath);
+    return current ? current.getMeta().type === 'dir' : false;
   }
   // END
 
