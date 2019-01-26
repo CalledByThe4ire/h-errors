@@ -1,23 +1,20 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+Задача состоит в том, чтобы реализовать тип `Stats` и его формирование посредством динамической диспетчеризации благодаря подтипам `Node`.
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+### Stats.js
 
-# nodejs-package
+Реализуйте тип `Stats` со следующим интерфейсом:
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
+-   `constructor`
+-   `isFile()`
+-   `isDirectory()`
 
-## Setup
+### Node.js
 
-```sh
-$ make install
-```
+Реализуйте надтип `Node`, интерфейсом которого являются функции:
 
-## Run tests
+-   `getStats()`
+-   `getName()`
 
-```sh
-$ make test
-```
+### Dir.js, File.js
+
+Реализуйте подтипы `Dir` и `File` (надтип `Node`). Варианты использования этих типов можно увидеть в файле `HexletFs.js`.
