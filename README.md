@@ -1,23 +1,33 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+### HexletFs.js
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+Реализуйте следующие возможности файловой системы `HexletFs`:
 
-# nodejs-package
+#### `mkdirpSync(path)`
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
+Создает директории рекурсивно (в отличие от `mkdir`).
 
-## Setup
+-   Если в пути встречается файл, то возвращает `false`, т.к. нельзя создать директорию внутри файла.
+-   Если все отработало корректно, то возвращается `true`
 
-```sh
-$ make install
-```
+#### `touchSync(path)`
 
-## Run tests
+Эта функция обновляет (в метаданных) время доступа к файлу и, как побочный эффект, создает файл, в случае его отсутствия. По этой причине команду `touch` часто используют как способ создать файл. В данном упражнении она делает только это.
 
-```sh
-$ make test
-```
+-   Если в пути встречается файл, то возвращает `false`, т.к. нельзя создать файл внутри файла
+-   Если все отработало корректно, то возвращается `true`
+
+#### `readdirSync(path)`
+
+Возвращает список файлов (и папок) указанной директории.
+
+-   Если директории не существует, то возвращает `false`
+-   Если передан файл, то возвращает `false`
+
+#### `rmdirSync(path)`
+
+Удаляет директорию.
+
+-   Если передан файл, то возвращает `false` и ничего не удаляет
+-   Если директории не существует, то возвращает `false`
+-   Если директория непустая, то возвращает `false`
+-   Если все отработало корректно, то возвращается `true`
