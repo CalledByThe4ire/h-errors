@@ -31,7 +31,10 @@
   },
   "homepage": "https://github.com/hexlet-boilerplates/nodejs-package#readme",
   "dependencies": {
+    "errno": "^0.1.7",
     "gulp": "^4.0.0",
+    "hexlet-fs": "^0.3.5",
+    "hexlet-trees": "^0.5.10",
     "source-map-support": "^0.5.9"
   },
   "devDependencies": {
