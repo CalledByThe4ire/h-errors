@@ -22,7 +22,16 @@ export default class {
   }
 
   // BEGIN (write your solution here)
-
+  copySync(src, dest) {
+    const data = this.readFileSync(src);
+    const destNode = this.findNode(dest);
+    if (destNode && destNode.getMeta().isDirectory()) {
+      const { base } = path.parse(src);
+      const fullDest = path.join(dest, base);
+      return this.writeFileSync(fullDest, data);
+    }
+    return this.writeFileSync(dest, data);
+  }
   // END
 
   writeFileSync(filepath, body) {
