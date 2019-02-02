@@ -20,7 +20,39 @@ export default class {
   }
 
   // BEGIN (write your solution here)
+  unlinkSync(filepath) {
+    const current = this.findNode(filepath);
+    if (!current) {
+      return [null, errors.code.ENOENT];
+    } else if (current.getMeta().isDirectory()) {
+      return [null, errors.code.EPERM];
+    }
+    return [current.getParent().removeChild(current.getKey()), null];
+  }
 
+  writeFileSync(filepath, body) {
+    const { base, dir } = path.parse(filepath);
+    const parent = this.findNode(dir);
+    if (!parent || parent.getMeta().isFile()) {
+      return [null, errors.code.ENOENT];
+    }
+    const current = parent.getChild(base);
+    if (current && current.getMeta().isDirectory()) {
+      return [null, errors.code.EISDIR];
+    }
+    return [parent.addChild(base, new File(base, body)), null];
+  }
+
+  readFileSync(filepath) {
+    const current = this.findNode(filepath);
+    if (!current) {
+      return [null, errors.code.ENOENT];
+    }
+    if (current.getMeta().isDirectory()) {
+      return [null, errors.code.EISDIR];
+    }
+    return [current.getMeta().getBody(), null];
+  }
   // END
 
   mkdirpSync(filepath) {
